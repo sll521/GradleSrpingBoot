@@ -39,6 +39,14 @@ dependencies {
     testCompile("org.springframework.boot:spring-boot-starter-test")
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile ("com.google.guava:guava:28.0-jre")
+    
     compileOnly("org.projectlombok:lombok:1.18.8")
+    annotationProcessor 'org.projectlombok:lombok:1.18.2'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.2'
+    testCompileOnly 'org.projectlombok:lombok:1.18.2'
+    
+    compile("org.apache.commons:commons-collections4:4.4")
+    compile("org.apache.commons:commons-lang3:3.9")
 
+    compile("commons-io:commons-io:2.6")
 }
