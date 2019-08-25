@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import domain.CsvExport;
 import org.junit.Test;
 import util.CsvTool;
+import util.DynamicDisplayImpl;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -24,6 +25,16 @@ public class CsvToolTest {
         List<CsvExport> csvExports = getData();
 
         CsvTool.newInstance().createCsvFile(filePath, csvExports, CsvExport.class);
+        boolean isFileOK = isFileOK(filePath);
+        assertTrue(isFileOK);
+    }
+
+    @Test
+    public void testCreateCsvFileDynamic() {
+        String filePath = "J:\\Study\\test.csv";
+        List<CsvExport> csvExports = getData();
+
+        CsvTool.newInstance(new DynamicDisplayImpl()).createCsvFile(filePath, csvExports, CsvExport.class);
         boolean isFileOK = isFileOK(filePath);
         assertTrue(isFileOK);
     }

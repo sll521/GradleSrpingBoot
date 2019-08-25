@@ -29,7 +29,7 @@ public final class CsvTool {
     }
 
     public static CsvTool newInstance() {
-        return newInstance(() -> false);
+        return newInstance(name -> true);
     }
 
     public static CsvTool newInstance(DynamicDisplay dynamicDisplay) {
@@ -53,7 +53,6 @@ public final class CsvTool {
         List<Field> fields = Arrays.asList(tClass.getDeclaredFields());
         List<String> headers = newArrayList();
         fields.forEach(field -> {
-            // field.setAccessible(true);
             CsvHeaderAttribute csvHeaderAttribute = field.getAnnotation(CsvHeaderAttribute.class);
 
             if (isDisplay(csvHeaderAttribute)) {
@@ -122,7 +121,7 @@ public final class CsvTool {
         File file = new File(filePath);
         List<String> csvData = transferToCsvData(data);
         try {
-            FileUtils.writeLines(file, "utf-8", csvData, true);
+            FileUtils.writeLines(file, "utf-8", csvData);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -139,7 +138,7 @@ public final class CsvTool {
     private boolean isDisplay(CsvHeaderAttribute csvHeaderAttribute) {
         boolean isDisplay;
         if (csvHeaderAttribute.dynamicDisplay()) {
-            isDisplay = dynamicDisplay.isDisplay();
+            isDisplay = dynamicDisplay.isDisplay(csvHeaderAttribute.name());
         } else {
             isDisplay = csvHeaderAttribute.isDisplay();
         }
